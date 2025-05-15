@@ -21,17 +21,17 @@ public class ReportController {
 
     @GetMapping("/api/reports/search")
     public SearchReportResponse runReport() {
-        List<String> searchTerms = Arrays.asList("Awesome", "Cool", "Cheap", "Quality", "Genuine");
+        List<String> searchTerms = Arrays.asList("Cool", "Amazing", "Perfect", "Kids");
 
+        Set<ProductItem> uniqueMatches = new HashSet<>();
         Map<String, Integer> searchCounts = new HashMap<>();
-        int total = 0;
 
         for (String term : searchTerms) {
             List<ProductItem> matchingItems = searchService.search(term);
             searchCounts.put(term, matchingItems.size());
-            total += matchingItems.size();
+            uniqueMatches.addAll(matchingItems); // Avoid double counting
         }
 
-        return new SearchReportResponse(searchCounts, total);
+        return new SearchReportResponse(searchCounts, uniqueMatches.size());
     }
 }

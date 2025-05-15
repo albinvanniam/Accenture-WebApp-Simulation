@@ -64,7 +64,7 @@ class ReportControllerSpec extends Specification {
         SearchReportResponse response = reportController.runReport()
 
         then:
-        response.productCount == 10
+        response.productCount == 8
         response.searchTermHits?.get("Cool") == 3
         response.searchTermHits?.get("Amazing") == 2
         response.searchTermHits?.get("Perfect") == 1
