@@ -1,0 +1,25 @@
+name: Simulated Jenkins CI
+
+on:
+  push:
+    branches:
+      - main
+      - '**'
+  pull_request:
+
+jobs:
+  jenkinsfile-runner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run Jenkinsfile with Jenkinsfile Runner
+        uses: jenkinsci/jenkinsfile-runner-github-actions@master
+        with:
+          jenkinsfile: Jenkinsfile
